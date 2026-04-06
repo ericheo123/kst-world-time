@@ -111,6 +111,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .panel-head {
@@ -137,19 +138,27 @@ h1 {
 }
 
 .primary-time {
-  margin-top: 10px;
+  display: inline-block;
+  width: fit-content;
+  margin-top: 14px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(31, 111, 255, 0.08);
+  color: #111723;
   font-family:
     ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  font-size: clamp(2.8rem, 5vw, 4.1rem);
-  font-weight: 700;
+  font-size: clamp(3.2rem, 5.8vw, 4.8rem);
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.08em;
+  font-variant-numeric: tabular-nums;
 }
 
 .primary-date {
   margin-top: 12px;
   color: var(--muted);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
+  font-weight: 600;
 }
 
 .panel-chip {
@@ -266,9 +275,9 @@ h1 {
   grid-template-columns: auto 1fr;
   gap: 12px 16px;
   align-items: center;
-  padding: 14px 16px;
+  padding: 16px;
   border-radius: 16px;
-  background: var(--surface-soft);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
   border: 1px solid rgba(25, 31, 40, 0.04);
 }
 
@@ -285,22 +294,30 @@ h1 {
 .city-meta {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 6px;
 }
 
 .city-time {
+  display: inline-block;
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(31, 111, 255, 0.07);
+  color: #111723;
   font-family:
     ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  font-size: 1.82rem;
-  font-weight: 700;
+  font-size: 2.15rem;
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.07em;
+  font-variant-numeric: tabular-nums;
 }
 
 .city-date,
 .city-difference {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
 }
 
 .hero-copy,
