@@ -32,7 +32,7 @@ const countries = [
   {
     country: "이집트",
     englishName: "Egypt",
-    accent: "일광절약시간 자동 반영",
+    accent: "서머타임 자동 반영",
     cities: [{ label: "카이로", timeZone: "Africa/Cairo" }]
   }
 ];
