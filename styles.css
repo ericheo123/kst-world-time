@@ -314,10 +314,16 @@ h1 {
 }
 
 .city-date,
-.city-difference {
+.city-difference,
+.city-dst {
   color: var(--muted);
   font-size: 0.88rem;
   line-height: 1.45;
+}
+
+.city-dst {
+  color: var(--blue-strong);
+  font-weight: 600;
 }
 
 .hero-copy,
