@@ -1,15 +1,33 @@
 const countries = [
   {
-    country: "베트남",
-    englishName: "Vietnam",
-    accent: "한국보다 2시간 느림",
-    cities: [{ label: "호치민", timeZone: "Asia/Ho_Chi_Minh" }]
-  },
-  {
     country: "호주",
     englishName: "Australia",
     accent: "시드니 기준",
     cities: [{ label: "시드니", timeZone: "Australia/Sydney" }]
+  },
+  {
+    country: "싱가포르",
+    englishName: "Singapore",
+    accent: "싱가포르 표준시",
+    cities: [{ label: "싱가포르", timeZone: "Asia/Singapore" }]
+  },
+  {
+    country: "카자흐스탄",
+    englishName: "Kazakhstan",
+    accent: "아스타나 기준",
+    cities: [{ label: "아스타나", timeZone: "Asia/Almaty" }]
+  },
+  {
+    country: "헝가리",
+    englishName: "Hungary",
+    accent: "서머타임 자동 반영",
+    cities: [{ label: "부다페스트", timeZone: "Europe/Budapest" }]
+  },
+  {
+    country: "체코",
+    englishName: "Czechia",
+    accent: "서머타임 자동 반영",
+    cities: [{ label: "프라하", timeZone: "Europe/Prague" }]
   },
   {
     country: "스웨덴",
@@ -18,22 +36,16 @@ const countries = [
     cities: [{ label: "스톡홀름", timeZone: "Europe/Stockholm" }]
   },
   {
-    country: "사우디아라비아",
-    englishName: "Saudi Arabia",
-    accent: "사우디 표준시",
-    cities: [{ label: "리야드", timeZone: "Asia/Riyadh" }]
-  },
-  {
-    country: "콜롬비아",
-    englishName: "Colombia",
-    accent: "한국보다 많이 느림",
-    cities: [{ label: "보고타", timeZone: "America/Bogota" }]
-  },
-  {
-    country: "이집트",
-    englishName: "Egypt",
+    country: "폴란드",
+    englishName: "Poland",
     accent: "서머타임 자동 반영",
-    cities: [{ label: "카이로", timeZone: "Africa/Cairo" }]
+    cities: [{ label: "바르샤바", timeZone: "Europe/Warsaw" }]
+  },
+  {
+    country: "독일",
+    englishName: "Germany",
+    accent: "서머타임 자동 반영",
+    cities: [{ label: "베를린", timeZone: "Europe/Berlin" }]
   }
 ];
 
