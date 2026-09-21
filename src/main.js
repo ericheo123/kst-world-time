@@ -1,51 +1,84 @@
-const countries = [
+const jurisdictions = [
   {
-    country: "호주",
-    englishName: "Australia",
-    accent: "시드니 기준",
-    cities: [{ label: "시드니", timeZone: "Australia/Sydney" }]
+    group: "호주 관할",
+    englishName: "AUSTRALIA JURISDICTION",
+    countries: ["호주", "뉴질랜드"],
+    accent: "2개 시간대",
+    timeZones: [
+      { label: "호주 · 시드니", timeZone: "Australia/Sydney" },
+      { label: "뉴질랜드 · 오클랜드", timeZone: "Pacific/Auckland" }
+    ]
   },
   {
-    country: "싱가포르",
-    englishName: "Singapore",
-    accent: "싱가포르 표준시",
-    cities: [{ label: "싱가포르", timeZone: "Asia/Singapore" }]
+    group: "싱가포르 관할",
+    englishName: "SINGAPORE JURISDICTION",
+    countries: ["싱가포르", "방글라데시", "스리랑카", "네팔"],
+    accent: "4개 시간대",
+    timeZones: [
+      { label: "싱가포르", timeZone: "Asia/Singapore" },
+      { label: "방글라데시 · 다카", timeZone: "Asia/Dhaka" },
+      { label: "스리랑카 · 콜롬보", timeZone: "Asia/Colombo" },
+      { label: "네팔 · 카트만두", timeZone: "Asia/Kathmandu" }
+    ]
   },
   {
-    country: "카자흐스탄",
-    englishName: "Kazakhstan",
-    accent: "아스타나 기준",
-    cities: [{ label: "아스타나", timeZone: "Asia/Almaty" }]
+    group: "카자흐스탄 관할",
+    englishName: "KAZAKHSTAN JURISDICTION",
+    countries: ["카자흐스탄", "우크라이나", "우즈베키스탄_RU", "우즈베키스탄_UZ"],
+    accent: "3개 시간대",
+    timeZones: [
+      { label: "카자흐스탄 · 아스타나", timeZone: "Asia/Almaty" },
+      { label: "우크라이나 · 키이우", timeZone: "Europe/Kyiv" },
+      { label: "우즈베키스탄_RU · UZ", timeZone: "Asia/Tashkent" }
+    ]
   },
   {
-    country: "헝가리",
-    englishName: "Hungary",
-    accent: "서머타임 자동 반영",
-    cities: [{ label: "부다페스트", timeZone: "Europe/Budapest" }]
+    group: "헝가리 관할",
+    englishName: "HUNGARY JURISDICTION",
+    countries: ["헝가리", "불가리아", "세르비아", "크로아티아"],
+    accent: "2개 시간대",
+    timeZones: [
+      { label: "헝가리 · 세르비아 · 크로아티아", timeZone: "Europe/Budapest" },
+      { label: "불가리아 · 소피아", timeZone: "Europe/Sofia" }
+    ]
   },
   {
-    country: "체코",
-    englishName: "Czechia",
-    accent: "서머타임 자동 반영",
-    cities: [{ label: "프라하", timeZone: "Europe/Prague" }]
+    group: "체코 관할",
+    englishName: "CZECHIA JURISDICTION",
+    countries: ["체코", "슬로바키아"],
+    accent: "같은 시간대",
+    timeZones: [
+      { label: "체코 · 슬로바키아", timeZone: "Europe/Prague" }
+    ]
   },
   {
-    country: "스웨덴",
-    englishName: "Sweden",
-    accent: "서머타임 자동 반영",
-    cities: [{ label: "스톡홀름", timeZone: "Europe/Stockholm" }]
+    group: "스웨덴 관할",
+    englishName: "SWEDEN JURISDICTION",
+    countries: ["스웨덴", "덴마크", "핀란드", "노르웨이"],
+    accent: "2개 시간대",
+    timeZones: [
+      { label: "스웨덴 · 덴마크 · 노르웨이", timeZone: "Europe/Stockholm" },
+      { label: "핀란드 · 헬싱키", timeZone: "Europe/Helsinki" }
+    ]
   },
   {
-    country: "폴란드",
-    englishName: "Poland",
-    accent: "서머타임 자동 반영",
-    cities: [{ label: "바르샤바", timeZone: "Europe/Warsaw" }]
+    group: "폴란드 관할",
+    englishName: "POLAND JURISDICTION",
+    countries: ["폴란드", "라트비아", "리투아니아", "에스토니아"],
+    accent: "2개 시간대",
+    timeZones: [
+      { label: "폴란드 · 바르샤바", timeZone: "Europe/Warsaw" },
+      { label: "라트비아 · 리투아니아 · 에스토니아", timeZone: "Europe/Riga" }
+    ]
   },
   {
-    country: "독일",
-    englishName: "Germany",
-    accent: "서머타임 자동 반영",
-    cities: [{ label: "베를린", timeZone: "Europe/Berlin" }]
+    group: "독일 관할",
+    englishName: "GERMANY JURISDICTION",
+    countries: ["독일", "스위스_DE", "스위스_FR"],
+    accent: "같은 시간대",
+    timeZones: [
+      { label: "독일 · 스위스_DE · FR", timeZone: "Europe/Berlin" }
+    ]
   }
 ];
 
@@ -57,23 +90,22 @@ const DAY_IN_MS = 24 * 60 * 60 * 1000;
 const MINUTE_IN_MS = 60 * 1000;
 
 function createCards() {
-  gridElement.innerHTML = countries
+  gridElement.innerHTML = jurisdictions
     .map(
-      (country) => `
+      (group) => `
         <article class="clock-card">
           <div class="country-header">
             <div>
-              <p class="country-label">${country.englishName}</p>
-              <h2 class="country-name">${country.country}</h2>
+              <p class="country-label">${group.englishName}</p>
+              <h2 class="country-name">${group.group}</h2>
             </div>
-            <div class="offset-badge">${country.accent}</div>
+            <div class="offset-badge">${group.accent}</div>
           </div>
+          <div class="country-chips">${group.countries.map((name) => `<span>${name}</span>`).join("")}</div>
           <div class="city-list">
-            ${country.cities
-              .map(
-                (city) => `
-                  <div class="city-row" data-timezone="${city.timeZone}">
-                    <div class="city-tag">${city.label}</div>
+            ${group.timeZones.map((zone) => `
+                  <div class="city-row" data-timezone="${zone.timeZone}">
+                    <div class="city-tag">${zone.label}</div>
                     <div class="city-meta">
                       <div class="city-time">--:--:--</div>
                       <div class="city-date">날짜 계산 중</div>
@@ -81,9 +113,7 @@ function createCards() {
                       <div class="city-dst">서머타임 확인 중</div>
                     </div>
                   </div>
-                `
-              )
-              .join("")}
+            `).join("")}
           </div>
         </article>
       `
