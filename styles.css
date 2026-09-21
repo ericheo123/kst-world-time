@@ -253,6 +253,22 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+.country-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.country-chips span {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: #f0f4f8;
+  color: #4e6175;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
 .offset-badge {
   flex-shrink: 0;
   padding: 7px 11px;
