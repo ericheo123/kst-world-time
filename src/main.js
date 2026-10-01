@@ -79,6 +79,15 @@ const jurisdictions = [
     timeZones: [
       { label: "독일 · 스위스_DE · FR", timeZone: "Europe/Berlin" }
     ]
+  },
+  {
+    group: "이스라엘 관할",
+    englishName: "ISRAEL JURISDICTION",
+    countries: ["이스라엘"],
+    accent: "예루살렘 기준",
+    timeZones: [
+      { label: "이스라엘 · 예루살렘", timeZone: "Asia/Jerusalem" }
+    ]
   }
 ];
 
