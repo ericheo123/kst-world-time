@@ -277,43 +277,49 @@ function findTransitionTime(startDate, endDate, timeZone, beforeOffset) {
 
 function getDstRange(date, timeZone) {
   const cacheKey = `${timeZone}:${date.getUTCFullYear()}`;
-  if (dstInfoCache.has(cacheKey)) {
-    return dstInfoCache.get(cacheKey);
-  }
+  let cachedInfo = dstInfoCache.get(cacheKey);
 
-  const startDate = new Date(Date.UTC(date.getUTCFullYear() - 1, 0, 1, 12));
-  const endDate = new Date(Date.UTC(date.getUTCFullYear() + 1, 11, 31, 12));
-  const transitions = getOffsetTransitions(startDate, endDate, timeZone);
-  const uniqueOffsets = [...new Set([getOffsetMinutes(startDate, timeZone), ...transitions.map((transition) => transition.after)])];
+  if (!cachedInfo) {
+    const startDate = new Date(Date.UTC(date.getUTCFullYear() - 1, 0, 1, 12));
+    const endDate = new Date(Date.UTC(date.getUTCFullYear() + 1, 11, 31, 12));
+    const transitions = getOffsetTransitions(startDate, endDate, timeZone);
+    const uniqueOffsets = [...new Set([getOffsetMinutes(startDate, timeZone), ...transitions.map((transition) => transition.after)])];
 
-  if (uniqueOffsets.length < 2) {
-    const result = { observesDst: false };
-    dstInfoCache.set(cacheKey, result);
-    return result;
-  }
+    if (uniqueOffsets.length < 2) {
+      cachedInfo = { observesDst: false };
+      dstInfoCache.set(cacheKey, cachedInfo);
+    } else {
+      const dstOffset = Math.max(...uniqueOffsets);
+      const intervals = [];
+      let intervalStart = startDate.getTime();
+      let currentOffset = getOffsetMinutes(startDate, timeZone);
 
-  const dstOffset = Math.max(...uniqueOffsets);
-  const intervals = [];
-  let intervalStart = startDate.getTime();
-  let currentOffset = getOffsetMinutes(startDate, timeZone);
+      transitions.forEach((transition) => {
+        const intervalEnd = transition.at.getTime();
+        if (currentOffset === dstOffset) {
+          intervals.push({ start: intervalStart, end: intervalEnd });
+        }
 
-  transitions.forEach((transition) => {
-    const intervalEnd = transition.at.getTime();
-    if (currentOffset === dstOffset) {
-      intervals.push({ start: intervalStart, end: intervalEnd });
+        intervalStart = intervalEnd;
+        currentOffset = transition.after;
+      });
+
+      if (currentOffset === dstOffset) {
+        intervals.push({ start: intervalStart, end: endDate.getTime() });
+      }
+
+      cachedInfo = { observesDst: true, intervals };
+      dstInfoCache.set(cacheKey, cachedInfo);
     }
+  }
 
-    intervalStart = intervalEnd;
-    currentOffset = transition.after;
-  });
-
-  if (currentOffset === dstOffset) {
-    intervals.push({ start: intervalStart, end: endDate.getTime() });
+  if (!cachedInfo.observesDst) {
+    return cachedInfo;
   }
 
   const now = date.getTime();
-  const activeInterval = intervals.find((interval) => interval.start <= now && now < interval.end);
-  const nextInterval = intervals.find((interval) => interval.start > now) ?? intervals[0];
+  const activeInterval = cachedInfo.intervals.find((interval) => interval.start <= now && now < interval.end);
+  const nextInterval = cachedInfo.intervals.find((interval) => interval.start > now) ?? cachedInfo.intervals[0];
   const targetInterval = activeInterval ?? nextInterval;
 
   const result = {
@@ -323,7 +329,6 @@ function getDstRange(date, timeZone) {
     end: new Date(targetInterval.end)
   };
 
-  dstInfoCache.set(cacheKey, result);
   return result;
 }
 
@@ -379,3 +384,4 @@ function getDayDifference(now, timeZone, targetParts) {
 createCards();
 updateClock();
 setInterval(updateClock, 1000);
+
